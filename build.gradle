@@ -1,0 +1,37 @@
+
+plugins {
+    id 'java'
+}
+
+group 'com.petersamokhin.bots.sdk'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.json:json:20170516"
+    compile "javax.servlet:javax.servlet-api:3.0.1"
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
+    //compileOnly "org.apache.spark:spark-core_2.10:0.9.0-incubating"
+    //compile group: 'com.sparkjava', name: 'spark-core', version: '2.6.0'
+    compile files("D:/Загрузки/spark-core-2.6.0.jar")
+    //compile files("D:/Загрузки/slf4j-api-1.7.25.jar")
+}
+
+
+jar {
+    manifest {
+        attributes "Main-Class": "com.baeldung.fatjar.Application"
+    }
+
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+processResources {
+
+    jar.destinationDir(new File("C:/Users/Юра/Desktop/output/"))
+}
