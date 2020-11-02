@@ -765,7 +765,7 @@ public class Message {
 
 
     
-            params.put("keyboard", keyboard.getJson().toString());
+            if(keyboard != null) params.put("keyboard", keyboard.getJson().toString());
 
             api.call("messages.send", params, response -> {
                 if (callback.length > 0) {
