@@ -14,8 +14,6 @@ Unofficial VK.com SDK
 
 See the documentation: [https://vksdk.github.io/vk-sdk-kotlin](https://vksdk.github.io/vk-sdk-kotlin)
 
-Latest version:  [![maven-central](https://img.shields.io/badge/Maven%20Central-0.0.7-yellowgreen?style=flat)](https://search.maven.org/search?q=g:com.petersamokhin.vksdk)
-
 ## Minimal example of the echo-chatbot
 
 ### Java
