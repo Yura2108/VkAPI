@@ -1,4 +1,4 @@
-# VK SDK Kotlin
+# VK SDK Java
 ![cover](docs/images/cover.png)
 
 <p align="center">Create a chat-bot for VK.com in a few lines of code, use the API and forget about the limitations</p>
@@ -20,49 +20,14 @@ For Kotlin 1.3.72 use version 0.0.5 and below.
 
 ## Minimal example of the echo-chatbot
 
-### Kotlin
-```kotlin
-// From here: https://vk.com/club151083290 take the ID
-val groupId = 151083290
-
-// Read more: https://vk.com/dev/access_token
-val accessToken = "abcdef123456..."
-
-// There are two http clients available for now: 
-// JVM-only OkHttp-based
-// and common ktor-based
-val vkHttpClient = VkOkHttpClient()
-
-val client = VkApiClient(groupId, accessToken, VkApiClient.Type.Community, VkSettings(vkHttpClient))
-
-client.onMessage { messageEvent ->
-    client.sendMessage {
-        peerId = messageEvent.message.peerId
-        message = "Hello, World!"
-
-        // You can use stickers, replies, location, etc.
-        // All of the message parameters are supported.
-    }.execute()
-}
-
-client.startLongPolling()
-```
-
 ### Java
 ```java
 int groupId = 151083290;
 String accessToken = "abcdef123456...";
-HttpClient vkHttpClient = new VkOkHttpClient();
 
-VkApiClient client = new VkApiClient(groupId, accessToken, VkApiClient.Type.Community, new VkSettings(vkHttpClient));
+Group group = new Group(groupId, accessToken);
 
-client.onMessage(event -> {
-    new Message()
-        .peerId(event.getMessage().getPeerId())
-        .text("Hello, world!")
-        .sendFrom(client)
-        .execute();
-});
+group.onSimpleTextMessage(callback -> callback...);
 
 client.startLongPolling();
 ```
@@ -89,51 +54,6 @@ You can't find here a hundred of pre-defined data classes for each API method, b
 - [`messages.send`](https://vk.com/dev/messages.send): use DSL for sending messages and building keyboards. All method capabilities are covered.
     - Attach files in a couple of lines of code, using a file from disk, URL, etc.
   
-## Install
-Library is uploaded to the Maven Central Repository.
-
-For Gradle 6.0+ or with metadata enabled, add the dependencies in this way:
-```groovy
-// core module is required
-implementation "com.petersamokhin.vksdk:core:$vkSdkVersion"
-
-// One of the HTTP clients is also required.
-// You can use pre-defined OkHttp-based client, but only for JVM.
-implementation "com.petersamokhin.vksdk:http-client-jvm-okhttp:$vkSdkVersion"
-
-// Or else you can use the common HTTP client, which is based on ktor 
-// and available for all of the platforms, including JVM.
-// In this case, you also must specify the ktor engine.
-implementation "com.petersamokhin.vksdk:http-client-common-ktor:$vkSdkVersion"
-```
-
-Otherwise, add `enableFeaturePreview("GRADLE_METADATA")` to `settings.gradle` or else you should specify the platform.
-Example for JVM:
-```groovy
-implementation "com.petersamokhin.vksdk:core-jvm:$vkSdkVersion"
-implementation "com.petersamokhin.vksdk:http-client-common-ktor-jvm:$vkSdkVersion"
-
-// and OkHttp-based client is already JVM-only
-implementation "com.petersamokhin.vksdk:http-client-jvm-okhttp:$vkSdkVersion"
-```
-
-## Limitations
-#### Unsupported platforms
-- `linuxArm32Hfp`, `linuxMips32`
-    - [https://github.com/Kotlin/kotlinx.coroutines/issues/855](https://github.com/Kotlin/kotlinx.coroutines/issues/855)
-
-#### Unsupported functionality
-- Attachment of a file (i.e. access to filesystem) is available only for JS, JVM and darwin. The other platform implementations may be in todo. 
-- Synchronous calls for `js` platform
-    - [https://github.com/Kotlin/kotlinx.coroutines/issues/195#issuecomment-354458878](https://github.com/Kotlin/kotlinx.coroutines/issues/195#issuecomment-354458878)
-
-## 3rd party
-- Kotlin ([coroutines](https://github.com/Kotlin/kotlinx.coroutines), [serialization](https://github.com/Kotlin/kotlinx.serialization), [dokka](https://github.com/Kotlin/dokka))
-- [ktor](https://github.com/ktorio/ktor) client
-- [gradle-maven-publish-plugin](https://github.com/vanniktech/gradle-maven-publish-plugin)
-- [OkHttp](https://github.com/square/okhttp)
-- [Stately](https://github.com/touchlab/Stately)
-- SwiftUI for the iOS app in the multiplatform example
 
 ## License
 See the [License](https://github.com/vksdk/vk-sdk-kotlin/blob/master/LICENSE)
