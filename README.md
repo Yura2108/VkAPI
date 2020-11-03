@@ -1,5 +1,8 @@
 # VK SDK Java
 
+### RECHANGE PETERSAMOKHIN KOTLIN SDK
+### OFFICIAL https://github.com/vksdk/vk-sdk-kotlin
+
 <p align="center">Create a chat-bot for VK.com in a few lines of code, use the API and forget about the limitations</p>
 <p align="center"><a href="https://vk.com/vk_sdk">https://vk.com/vk_sdk</a></p>
 
