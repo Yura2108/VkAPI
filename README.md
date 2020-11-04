@@ -15,17 +15,17 @@ Unofficial VK.com SDK
 See the documentation: [https://vksdk.github.io/vk-sdk-kotlin](https://vksdk.github.io/vk-sdk-kotlin)
 
 ## Minimal example of the echo-chatbot
-
+### Keyboard support was added
 ### Java
 ```java
 int groupId = 151083290;
 String accessToken = "abcdef123456...";
+int userID = 123456789;
 
 Group group = new Group(groupId, accessToken);
 
-group.onSimpleTextMessage(callback -> callback...);
-
-client.startLongPolling();
+//Send message with keyboard
+Message msg = new Message().from(group).to(userID).text("Some text").keyboard(new Keyboard().setInLine(true).addButtons(0, new Button().setLabel("Some button").setColor(Color.Positive)));
 ```
 
 ## Features
